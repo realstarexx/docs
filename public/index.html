@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starexx Library Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .floating-header {
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+        .floating-header.visible {
+            transform: translateY(0);
+        }
+        .toc-dropdown {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .toc-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .toc-menu {
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 30px;
+            background: white;
+        }
+        .toc-menu:hover {
+            background: #f9f9f9;
+        }
+        .code-block {
+            font-family: 'IBM Plex Mono', monospace;
+        }
+    </style>
+</head>
+<body class="font-sans bg-white text-gray-800">
+    <!-- Floating Header -->
+    <header class="floating-header fixed top-0 left-0 right-0 bg-white border-b border-gray-200 py-4 px-6 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="text-sm font-medium text-gray-600">
+                <span class="text-gray-400">/</span> Starexx <span class="text-gray-400">/</span> <span id="current-chapter">Introduction</span>
+            </div>
+            <div class="relative">
+                <div class="toc-menu flex items-center gap-2" id="toc-toggle">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </div>
+                <div class="toc-dropdown absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg py-2 max-h-96 overflow-y-auto">
+                    <div class="text-xs font-semibold text-gray-500 px-4 py-2 border-b border-gray-100">TABLE OF CONTENTS</div>
+                    <nav class="py-2">
+                        <a href="#introduction" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Introduction</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#installation" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Installation</a>
+                        <a href="#import-methods" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Import Methods</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#quick-start" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Quick Start</a>
+                        <a href="#basic-usage" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Basic Usage</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#output-input" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Output & Input</a>
+                        <a href="#say-function" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">say() Function</a>
+                        <a href="#ask-function" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">ask() Function</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#math-operations" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Math Operations</a>
+                        <a href="#basic-arithmetic" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Basic Arithmetic</a>
+                        <a href="#advanced-math" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Advanced Math</a>
+                        <a href="#number-utilities" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Number Utilities</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#text-processing" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Text Processing</a>
+                        <a href="#string-operations" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">String Operations</a>
+                        <a href="#text-manipulation" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Text Manipulation</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#file-operations" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">File Operations</a>
+                        <a href="#basic-file-handling" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Basic File Handling</a>
+                        <a href="#file-system" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">File System</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#data-structures" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Data Structures</a>
+                        <a href="#lists" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Lists</a>
+                        <a href="#dictionaries" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Dictionaries</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#time-date" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Time & Date</a>
+                        <a href="#time-functions" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Time Functions</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#web-utilities" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Web Utilities</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#unit-conversion" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Unit Conversion</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#validation-formatting" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Validation & Formatting</a>
+                        <a href="#validation" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Validation</a>
+                        <a href="#formatting" class="block px-6 py-1 text-xs text-gray-500 hover:bg-gray-50">Formatting</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#system-utilities" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">System Utilities</a>
+                        
+                        <div class="border-t border-gray-100 my-1"></div>
+                        <a href="#complete-example" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Complete Example</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto py-8 px-6 pt-20">
+        <!-- Introduction -->
+        <section id="introduction" class="mb-16 scroll-mt-20">
+            <h1 class="text-4xl font-bold text-gray-900 mb-6">Starexx Documentation</h1>
+            <div class="prose prose-lg max-w-none">
+                <p class="text-lg text-gray-600 mb-6">
+                    Starexx is a comprehensive utility library for Python that provides simplified functions for common programming tasks, 
+                    mathematical operations, file handling, text processing, and system utilities. It's designed to make Python programming 
+                    more accessible and efficient.
+                </p>
+                <p class="text-gray-600 mb-4">
+                    The library offers a clean, intuitive API that reduces boilerplate code and handles common edge cases automatically.
+                </p>
+            </div>
+        </section>
+
+        <!-- Installation -->
+        <section id="installation" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Installation</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Starexx is a single Python file that can be directly imported into your projects. No package installation required.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Basic Import</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Import the entire library and access functions using the <code class="bg-gray-100 px-1 rounded">starexx.</code> prefix.</p>
+            </div>
+        </section>
+
+        <!-- Import Methods -->
+        <section id="import-methods" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Import Methods</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Starexx supports multiple import patterns to suit different coding styles and needs.
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Method 1: Import Entire Module</h3>
+                    <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Usage
+starexx.say("Hello World")
+result = starexx.add(5, 3)</code></pre>
+                    <p class="text-gray-600 mt-2 text-sm">Explicit namespace - prevents naming conflicts, recommended for larger projects.</p>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Method 2: Import Specific Functions</h3>
+                    <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>from starexx import say, ask, add, multiply
+
+# Usage
+say("Hello World")
+result = add(5, 3)
+name = ask("What's your name?")</code></pre>
+                    <p class="text-gray-600 mt-2 text-sm">Import only what you need - reduces memory usage and improves readability.</p>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Method 3: Import All Functions</h3>
+                    <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>from starexx import *
+
+# Usage
+say("Hello World")
+result = add(5, 3)
+showTime()</code></pre>
+                    <p class="text-gray-600 mt-2 text-sm">Import everything - convenient for small scripts but may cause naming conflicts in larger projects.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start -->
+        <section id="quick-start" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Quick Start</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Get started quickly with these basic examples that demonstrate common use cases.
+                </p>
+            </div>
+
+            <div id="basic-usage" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Basic Usage Examples</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Basic output and input
+starexx.say("Hello", "World!", "Welcome to Starexx")
+name = starexx.ask("What's your name?")
+
+# Math operations
+result = starexx.add(5, 3)
+average = starexx.average(10, 20, 30, 40, 50)
+
+# File handling
+starexx.writeFile("greeting.txt", f"Hello {name}!")
+content = starexx.readFile("greeting.txt")
+
+# Text processing
+reversed_text = starexx.reverseText("hello")
+upper_text = starexx.toUpper("hello world")
+
+# Time utilities
+starexx.showTime()
+starexx.countdown(3)  # 3-second countdown</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">This example shows the basic workflow: import the library, use input/output functions, perform calculations, handle files, process text, and use time utilities.</p>
+            </div>
+        </section>
+
+        <!-- Output & Input -->
+        <section id="output-input" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Output & Input Functions</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Functions for console output and user input handling with automatic formatting and validation.
+                </p>
+            </div>
+
+            <div id="say-function" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">say() Function</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Print multiple messages with automatic spacing
+starexx.say("Hello", "World!", "How are you?")
+# Output: Hello World! How are you?
+
+# Print variables and text
+name = "Alice"
+age = 25
+starexx.say("Name:", name, "Age:", age)
+# Output: Name: Alice Age: 25
+
+# Print lists and other objects
+numbers = [1, 2, 3, 4, 5]
+starexx.say("Numbers:", numbers)
+# Output: Numbers: [1, 2, 3, 4, 5]</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">The <code class="bg-gray-100 px-1 rounded">say()</code> function automatically converts all arguments to strings and joins them with spaces. It handles any number of arguments and works with all data types.</p>
+            </div>
+
+            <div id="ask-function" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">ask() Function</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Basic input with prompt
+name = starexx.ask("What is your name?")
+print(f"Hello, {name}!")
+
+# Numeric input (requires conversion)
+age_input = starexx.ask("How old are you?")
+age = int(age_input)  # Convert to integer
+
+# Multiple inputs in sequence
+city = starexx.ask("Which city do you live in?")
+country = starexx.ask("Which country?")
+
+starexx.say(f"Location: {city}, {country}")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">The <code class="bg-gray-100 px-1 rounded">ask()</code> function displays a prompt and returns user input as a string. For numeric input, you need to convert the returned string to the appropriate type.</p>
+            </div>
+        </section>
+
+        <!-- Math Operations -->
+        <section id="math-operations" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Mathematical Operations</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Comprehensive mathematical functions including basic arithmetic, advanced calculations, and number utilities.
+                </p>
+            </div>
+
+            <div id="basic-arithmetic" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Basic Arithmetic</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Addition
+result = starexx.add(5, 3)        # Returns: 8
+result = starexx.add(2.5, 3.7)    # Returns: 6.2
+
+# Subtraction
+result = starexx.subtract(10, 4)  # Returns: 6
+result = starexx.subtract(5.5, 2.2) # Returns: 3.3
+
+# Multiplication
+result = starexx.multiply(3, 7)   # Returns: 21
+result = starexx.multiply(2.5, 4) # Returns: 10.0
+
+# Division with zero handling
+result = starexx.divide(15, 3)    # Returns: 5.0
+result = starexx.divide(10, 4)    # Returns: 2.5
+result = starexx.divide(5, 0)     # Returns: "Cannot divide by zero"
+
+# Practical example
+price = 100
+tax_rate = 0.18
+tax_amount = starexx.multiply(price, tax_rate)
+total = starexx.add(price, tax_amount)
+starexx.say(f"Total with tax: {total}")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Basic arithmetic functions that handle both integers and floats. Division includes automatic zero-division protection.</p>
+            </div>
+
+            <div id="advanced-math" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Advanced Math Functions</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Exponentiation
+square = starexx.square(5)        # Returns: 25
+cube = starexx.cube(3)            # Returns: 27
+power = starexx.power(2, 8)       # Returns: 256
+
+# Roots
+sqrt = starexx.sqrt(16)           # Returns: 4.0
+sqrt = starexx.sqrt(2)            # Returns: 1.4142135623730951
+
+# Statistical functions
+avg = starexx.average(10, 20, 30, 40, 50)  # Returns: 30.0
+max_val = starexx.maximum(4, 2, 8, 1, 9)   # Returns: 9
+min_val = starexx.minimum(4, 2, 8, 1, 9)   # Returns: 1
+total = starexx.total([1, 2, 3, 4, 5])     # Returns: 15
+
+# Percentage calculation
+percentage = starexx.percentage(25, 100)   # Returns: 25.0
+percentage = starexx.percentage(15, 200)   # Returns: 7.5
+
+# Practical example: Student grades
+grades = [85, 92, 78, 96, 88]
+average_grade = starexx.average(*grades)
+highest_grade = starexx.maximum(*grades)
+lowest_grade = starexx.minimum(*grades)
+
+starexx.say(f"Average: {average_grade}, Highest: {highest_grade}, Lowest: {lowest_grade}")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Advanced mathematical functions for exponents, roots, statistics, and percentages. Note the use of <code class="bg-gray-100 px-1 rounded">*</code> to unpack lists when using variable arguments.</p>
+            </div>
+
+            <div id="number-utilities" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Number Utilities</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Parity checking
+print(starexx.isEven(4))        # Returns: True
+print(starexx.isEven(7))        # Returns: False
+print(starexx.isOdd(4))         # Returns: False
+print(starexx.isOdd(7))         # Returns: True
+
+# Rounding and absolute values
+print(starexx.roundNumber(3.14159, 2))  # Returns: 3.14
+print(starexx.floorNumber(3.7))         # Returns: 3
+print(starexx.ceilingNumber(3.2))       # Returns: 4
+print(starexx.absoluteValue(-5))        # Returns: 5
+
+# Number properties
+print(starexx.isPrime(17))      # Returns: True
+print(starexx.isPrime(15))      # Returns: False
+print(starexx.factorial(5))     # Returns: 120
+
+# Sequences
+fib_sequence = starexx.fibonacci(8)  # Returns: [0, 1, 1, 2, 3, 5, 8, 13]
+
+# Practical example: Number analysis
+number = 29
+starexx.say(f"{number} is even: {starexx.isEven(number)}")
+starexx.say(f"{number} is prime: {starexx.isPrime(number)}")
+starexx.say(f"Factorial of 5: {starexx.factorial(5)}")
+starexx.say(f"First 10 Fibonacci numbers: {starexx.fibonacci(10)}")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Utility functions for number analysis including parity checking, rounding, prime detection, factorials, and Fibonacci sequence generation.</p>
+            </div>
+        </section>
+
+        <!-- Text Processing -->
+        <section id="text-processing" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Text Processing</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Comprehensive text manipulation functions for string operations, formatting, and analysis.
+                </p>
+            </div>
+
+            <div id="string-operations" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">String Operations</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+text = "hello world, how are you?"
+
+# Splitting and joining
+words = starexx.splitText(text, " ")     
+# Returns: ['hello', 'world,', 'how', 'are', 'you?']
+
+joined = starexx.joinText(['a', 'b', 'c'], '-')  
+# Returns: 'a-b-c'
+
+# Reversal and length
+reversed_text = starexx.reverseText("hello")     
+# Returns: 'olleh'
+
+length = starexx.textLength("hello")      
+# Returns: 5
+
+# Case conversion
+upper_text = starexx.toUpper(text)            
+# Returns: 'HELLO WORLD, HOW ARE YOU?'
+
+lower_text = starexx.toLower("HELLO World")         
+# Returns: 'hello world'
+
+capitalized = starexx.capitalizeText("hello")  
+# Returns: 'Hello'
+
+title_text = starexx.titleText("hello world") 
+# Returns: 'Hello World'
+
+# Practical example: Text normalization
+user_input = "  HELLO    WORLD  "
+clean_text = starexx.trimText(user_input)
+normalized = starexx.toLower(clean_text)
+title_case = starexx.titleText(normalized)
+
+starexx.say(f"Original: '{user_input}'")
+starexx.say(f"Normalized: '{title_case}'")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Basic string operations including splitting, joining, case conversion, and text normalization. Essential for cleaning and processing user input.</p>
+            </div>
+
+            <div id="text-manipulation" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Text Manipulation & Search</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+text = "The quick brown fox jumps over the lazy dog"
+
+# Replacement
+new_text = starexx.replaceText("hello", "l", "x")  
+# Returns: 'hexxo'
+
+new_text = starexx.replaceText(text, "fox", "cat")
+# Returns: 'The quick brown cat jumps over the lazy dog'
+
+# Trimming whitespace
+trimmed = starexx.trimText("  hello  ")    
+# Returns: 'hello'
+
+# Search operations
+starts = starexx.startsWith("hello", "he") 
+# Returns: True
+
+ends = starexx.endsWith("hello", "lo")  
+# Returns: True
+
+position = starexx.findText("hello", "ll")  
+# Returns: 2 (index where 'll' starts)
+
+count = starexx.countText("hello", "l")  
+# Returns: 2
+
+# Practical example: Text analysis
+document = "Python is great. Python is powerful. Python is easy."
+python_count = starexx.countText(document, "Python")
+starts_with_python = starexx.startsWith(document, "Python")
+ends_with_easy = starexx.endsWith(document, "easy.")
+
+starexx.say(f"Document: {document}")
+starexx.say(f"'Python' appears {python_count} times")
+starexx.say(f"Starts with 'Python': {starts_with_python}")
+starexx.say(f"Ends with 'easy.': {ends_with_easy}")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Advanced text manipulation including search, replace, and analysis functions. Useful for document processing and text mining.</p>
+            </div>
+        </section>
+
+        <!-- File Operations -->
+        <section id="file-operations" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">File Operations</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Complete file handling utilities for reading, writing, and managing files and directories.
+                </p>
+            </div>
+
+            <div id="basic-file-handling" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Basic File Handling</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Write to file
+starexx.writeFile("example.txt", "Hello World!")
+# Creates or overwrites example.txt with "Hello World!"
+
+# Read from file
+content = starexx.readFile("example.txt")
+starexx.say(content)  # Output: Hello World!
+
+# Append to file
+starexx.appendFile("example.txt", "\nThis is a new line")
+# File now contains:
+# Hello World!
+# This is a new line
+
+# Check if file exists
+if starexx.fileExists("example.txt"):
+    starexx.say("File exists!")
+else:
+    starexx.say("File not found!")
+
+# Delete file
+if starexx.deleteFile("example.txt"):
+    starexx.say("File deleted successfully")
+else:
+    starexx.say("File deletion failed or file doesn't exist")
+
+# Practical example: Logging system
+log_message = "User logged in at " + starexx.showTime()
+starexx.appendFile("app.log", log_message + "\n")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Basic file operations for creating, reading, updating, and deleting files. Includes automatic error handling for file operations.</p>
+            </div>
+
+            <div id="file-system" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">File System Operations</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# List files in current directory
+files = starexx.listFiles()
+starexx.say("Files in current directory:", files)
+
+# List files in specific directory
+files = starexx.listFiles("/path/to/directory")
+
+# Get current working directory
+current_dir = starexx.getCurrentFolder()
+starexx.say("Current folder:", current_dir)
+
+# Change directory
+starexx.changeFolder("/path/to/new/directory")
+
+# Create directory
+starexx.createFolder("new_folder")
+
+# Check path types
+if starexx.isFile("example.txt"):
+    starexx.say("This is a file")
+
+if starexx.isFolder("new_folder"):
+    starexx.say("This is a directory")
+
+# Get file size
+size = starexx.fileSize("example.txt")
+starexx.say(f"File size: {size} bytes")
+
+# Practical example: Directory scanner
+def scan_directory(path="."):
+    starexx.say(f"Scanning: {path}")
+    items = starexx.listFiles(path)
+    
+    for item in items:
+        full_path = f"{path}/{item}"
+        if starexx.isFile(full_path):
+            size = starexx.fileSize(full_path)
+            starexx.say(f"File: {item} ({size} bytes)")
+        elif starexx.isFolder(full_path):
+            starexx.say(f"Folder: {item}")
+
+scan_directory()</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">File system operations for directory navigation, listing contents, creating folders, and checking file properties.</p>
+            </div>
+        </section>
+
+        <!-- Data Structures -->
+        <section id="data-structures" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Data Structures</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Utilities for working with Python's core data structures - lists and dictionaries.
+                </p>
+            </div>
+
+            <div id="lists" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">List Operations</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Create lists
+my_list = starexx.createList(1, 2, 3, 2, 4, 3)
+starexx.say("Original list:", my_list)
+# Output: Original list: [1, 2, 3, 2, 4, 3]
+
+# Remove duplicates
+unique_list = starexx.makeUnique(my_list)
+starexx.say("Unique list:", unique_list)
+# Output: Unique list: [1, 2, 3, 4]
+
+# Sort lists
+sorted_list = starexx.sortItems(my_list)
+starexx.say("Sorted list:", sorted_list)
+# Output: Sorted list: [1, 2, 2, 3, 3, 4]
+
+# Search in lists
+exists = starexx.findInList(3, my_list)
+starexx.say("Is 3 in list?", exists)
+# Output: Is 3 in list? True
+
+# Count occurrences
+count = starexx.countInList(2, my_list)
+starexx.say("Count of 2:", count)
+# Output: Count of 2: 2
+
+# Practical example: Student management
+students = starexx.createList("Alice", "Bob", "Charlie", "Alice")
+unique_students = starexx.makeUnique(students)
+sorted_students = starexx.sortItems(unique_students)
+
+starexx.say("All students:", students)
+starexx.say("Unique students:", unique_students)
+starexx.say("Sorted students:", sorted_students)
+starexx.say("Is David enrolled?", starexx.findInList("David", students))</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">List manipulation functions for creating, deduplicating, sorting, searching, and counting elements in lists.</p>
+            </div>
+
+            <div id="dictionaries" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Dictionary Operations</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Create dictionary
+person = starexx.createDict(name="John", age=30, city="New York")
+starexx.say("Person:", person)
+# Output: Person: {'name': 'John', 'age': 30, 'city': 'New York'}
+
+# Get keys and values
+keys = starexx.getKeys(person)
+values = starexx.getValues(person)
+starexx.say("Keys:", keys)    # Output: Keys: ['name', 'age', 'city']
+starexx.say("Values:", values) # Output: Values: ['John', 30, 'New York']
+
+# Add to dictionary
+starexx.addToDict(person, "job", "Developer")
+starexx.say("After adding job:", person)
+# Output: After adding job: {'name': 'John', 'age': 30, 'city': 'New York', 'job': 'Developer'}
+
+# Remove from dictionary
+starexx.removeFromDict(person, "city")
+starexx.say("After removing city:", person)
+# Output: After removing city: {'name': 'John', 'age': 30, 'job': 'Developer'}
+
+# Merge dictionaries
+dict1 = {"a": 1, "b": 2}
+dict2 = {"c": 3, "d": 4}
+merged = starexx.mergeDicts(dict1, dict2)
+starexx.say("Merged dictionary:", merged)
+# Output: Merged dictionary: {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+# Practical example: User profile management
+user_profile = starexx.createDict(
+    username="johndoe",
+    email="john@example.com",
+    preferences=starexx.createDict(theme="dark", language="en")
+)
+
+starexx.addToDict(user_profile, "last_login", "2024-01-15")
+starexx.say("User profile:", user_profile)
+starexx.say("Profile keys:", starexx.getKeys(user_profile))</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Dictionary operations for creating, modifying, merging, and extracting data from dictionaries. Essential for configuration management and data storage.</p>
+            </div>
+        </section>
+
+        <!-- Time & Date -->
+        <section id="time-date" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Time & Date Functions</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Time and date utilities for displaying current time, creating timers, and measuring execution time.
+                </p>
+            </div>
+
+            <div id="time-functions" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Time Functions</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Display current time and date
+starexx.showTime()  # Output: 14:30:25 (current time)
+starexx.showDate()  # Output: 2024-01-15 (current date)
+
+# Wait for specified seconds
+starexx.say("Starting wait...")
+starexx.wait(2)  # Pauses execution for 2 seconds
+starexx.say("Wait complete!")
+
+# Countdown timer
+starexx.say("Starting countdown:")
+starexx.countdown(5)  # Counts down from 5 to 1
+# Output: 
+# 5
+# 4
+# 3
+# 2
+# 1
+# Time's up!
+
+# Performance timing
+start_time = starexx.timerStart()
+# Simulate some work
+starexx.wait(1)
+elapsed = starexx.timerStop(start_time)
+starexx.say(f"Operation took {elapsed:.2f} seconds")
+
+# Measure function execution time
+def expensive_operation():
+    starexx.wait(0.5)
+    return "Done"
+
+result = starexx.measureTime(expensive_operation)
+# Output: Time taken: 0.50 seconds
+
+# Practical example: Execution timer
+def process_data():
+    starexx.say("Processing data...")
+    starexx.wait(1.5)  # Simulate processing time
+    return "Processing complete"
+
+starexx.say("Starting data processing")
+result = starexx.measureTime(process_data)
+starexx.say(f"Result: {result}")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Time utilities for displaying current time, creating delays, countdown timers, and performance measurement. Essential for timing operations and creating time-based functionality.</p>
+            </div>
+        </section>
+
+        <!-- Web Utilities -->
+        <section id="web-utilities" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Web Utilities</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Functions for web-related tasks including opening URLs and performing web searches.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Open websites in default browser
+starexx.openWebsite("https://www.google.com")
+# Opens Google in your default web browser
+
+starexx.openWebsite("https://www.github.com")
+# Opens GitHub in your default web browser
+
+# Search the web
+starexx.searchWeb("Python programming")
+# Opens Google search for "Python programming"
+
+starexx.searchWeb("Starexx library documentation")
+# Opens Google search for "Starexx library documentation"
+
+# Practical example: Quick reference tool
+def quick_search(topic):
+    starexx.say(f"Searching for: {topic}")
+    starexx.searchWeb(topic)
+
+# Usage examples
+quick_search("Python list comprehension")
+quick_search("JavaScript array methods")
+quick_search("Machine learning tutorials")
+
+# Combined with user input
+search_query = starexx.ask("What would you like to search for?")
+if search_query:
+    starexx.searchWeb(search_query)
+else:
+    starexx.say("No search query provided")</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Web utilities for opening URLs and performing web searches directly from your Python code. These functions use the system's default web browser.</p>
+            </div>
+        </section>
+
+        <!-- Unit Conversion -->
+        <section id="unit-conversion" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Unit Conversion</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Utility functions for converting between different units of measurement.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Temperature conversion
+celsius = 0
+fahrenheit = starexx.convertCtoF(celsius)
+starexx.say(f"{celsius}°C = {fahrenheit}°F")  # Output: 0°C = 32.0°F
+
+fahrenheit = 32
+celsius = starexx.convertFtoC(fahrenheit)
+starexx.say(f"{fahrenheit}°F = {celsius}°C")  # Output: 32°F = 0.0°C
+
+# Distance conversion
+kilometers = 10
+miles = starexx.convertKMtoMiles(kilometers)
+starexx.say(f"{kilometers} km = {miles} miles")  # Output: 10 km = 6.21371 miles
+
+miles = 10
+kilometers = starexx.convertMilesToKM(miles)
+starexx.say(f"{miles} miles = {kilometers} km")  # Output: 10 miles = 16.0934 km
+
+# Practical example: Weather converter
+def display_weather(temp_c, description, location):
+    temp_f = starexx.convertCtoF(temp_c)
+    starexx.say(f"Weather in {location}: {description}")
+    starexx.say(f"Temperature: {temp_c}°C ({temp_f:.1f}°F)")
+
+# Usage
+display_weather(25, "Sunny", "New York")
+display_weather(-5, "Snowy", "Toronto")
+display_weather(30, "Cloudy", "Miami")
+
+# Practical example: Travel distance
+def calculate_travel(distance_km, speed_kmh):
+    distance_miles = starexx.convertKMtoMiles(distance_km)
+    time_hours = distance_km / speed_kmh
+    
+    starexx.say(f"Distance: {distance_km} km ({distance_miles:.1f} miles)")
+    starexx.say(f"At {speed_kmh} km/h, travel time: {time_hours:.1f} hours")
+
+calculate_travel(100, 80)  # 100 km at 80 km/h
+calculate_travel(250, 60)  # 250 km at 60 km/h</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Unit conversion functions for temperature (Celsius/Fahrenheit) and distance (kilometers/miles). Useful for international applications and data processing.</p>
+            </div>
+        </section>
+
+        <!-- Validation & Formatting -->
+        <section id="validation-formatting" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Validation & Formatting</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    Functions for data validation and formatting output in standardized ways.
+                </p>
+            </div>
+
+            <div id="validation" class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Validation Functions</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Email validation
+valid_email = starexx.validateEmail("test@example.com")
+starexx.say("test@example.com is valid:", valid_email)  # Output: True
+
+invalid_email = starexx.validateEmail("invalid-email")
+starexx.say("invalid-email is valid:", invalid_email)   # Output: False
+
+# Number validation
+valid_number = starexx.validateNumber("123.45")
+starexx.say("123.45 is a number:", valid_number)        # Output: True
+
+invalid_number = starexx.validateNumber("abc")
+starexx.say("abc is a number:", invalid_number)         # Output: False
+
+# Mixed input
+mixed_input = starexx.validateNumber("123abc")
+starexx.say("123abc is a number:", mixed_input)         # Output: False
+
+# Practical example: User registration
+def register_user():
+    email = starexx.ask("Enter your email: ")
+    
+    if not starexx.validateEmail(email):
+        starexx.say("Invalid email address!")
+        return
+    
+    age = starexx.ask("Enter your age: ")
+    
+    if not starexx.validateNumber(age):
+        starexx.say("Age must be a number!")
+        return
+    
+    age = int(age)
+    if age < 13:
+        starexx.say("You must be at least 13 years old!")
+        return
+    
+    starexx.say("Registration successful!")
+    return {"email": email, "age": age}
+
+# Test the function
+user_data = register_user()
+if user_data:
+    starexx.say("Registered user:", user_data)</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Validation functions for checking email format and numeric input. Essential for user input validation in applications.</p>
+            </div>
+
+            <div id="formatting" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Formatting Functions</h3>
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Currency formatting
+amount = 1234.56
+currency = starexx.formatCurrency(amount)
+starexx.say(f"Amount: {currency}")  # Output: Amount: $1234.56
+
+amount = 99.99
+currency = starexx.formatCurrency(amount)
+starexx.say(f"Amount: {currency}")  # Output: Amount: $99.99
+
+# Percentage formatting
+decimal = 0.756
+percent = starexx.formatPercent(decimal)
+starexx.say(f"Percentage: {percent}")  # Output: Percentage: 75.6%
+
+decimal = 0.1234
+percent = starexx.formatPercent(decimal)
+starexx.say(f"Percentage: {percent}")  # Output: Percentage: 12.3%
+
+# Number formatting with commas
+large_number = 1234567
+formatted = starexx.formatNumber(large_number)
+starexx.say(f"Number: {formatted}")  # Output: Number: 1,234,567
+
+small_number = 1234
+formatted = starexx.formatNumber(small_number)
+starexx.say(f"Number: {formatted}")  # Output: Number: 1,234
+
+# Practical example: Financial report
+def generate_report(revenue, expenses, profit_margin):
+    total_revenue = starexx.formatCurrency(revenue)
+    total_expenses = starexx.formatCurrency(expenses)
+    margin_percent = starexx.formatPercent(profit_margin)
+    
+    starexx.say("=== FINANCIAL REPORT ===")
+    starexx.say(f"Revenue: {total_revenue}")
+    starexx.say(f"Expenses: {total_expenses}")
+    starexx.say(f"Profit Margin: {margin_percent}")
+
+# Generate sample report
+generate_report(1500000, 950000, 0.3667)
+
+# Practical example: Data display
+def display_population_data():
+    countries = {
+        "USA": 331000000,
+        "India": 1380000000,
+        "China": 1400000000
+    }
+    
+    starexx.say("=== POPULATION DATA ===")
+    for country, population in countries.items():
+        formatted_pop = starexx.formatNumber(population)
+        starexx.say(f"{country}: {formatted_pop}")
+
+display_population_data()</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">Formatting functions for displaying numbers as currency, percentages, and with comma separators. Essential for professional-looking output in business applications.</p>
+            </div>
+        </section>
+
+        <!-- System Utilities -->
+        <section id="system-utilities" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">System Utilities</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    System-level utilities for terminal control, application management, and system information.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+# Clear terminal screen
+starexx.clearScreen()
+# Clears the terminal/console screen
+
+# Display system information
+starexx.getSystemInfo()
+# Output example:
+# Python version: 3.9.7 (default, Sep 16 2021, 13:09:58)
+# Platform: darwin
+
+# Create counter function
+counter = starexx.createCounter()
+print(counter())  # Output: 1
+print(counter())  # Output: 2
+print(counter())  # Output: 3
+
+# Create multiple counters
+counter1 = starexx.createCounter()
+counter2 = starexx.createCounter()
+
+print(counter1())  # Output: 1
+print(counter1())  # Output: 2
+print(counter2())  # Output: 1 (independent counter)
+print(counter1())  # Output: 3
+
+# Pause execution
+starexx.say("Program will pause...")
+starexx.pause()
+# Displays: "Press Enter to continue..." and waits for user input
+
+# Exit application
+# starexx.exitApp()
+# Uncommenting this will immediately terminate the program
+
+# Practical example: Interactive menu
+def interactive_menu():
+    while True:
+        starexx.clearScreen()
+        starexx.say("=== MAIN MENU ===")
+        starexx.say("1. View System Info")
+        starexx.say("2. Count Demo")
+        starexx.say("3. Exit")
+        
+        choice = starexx.ask("Enter your choice (1-3): ")
+        
+        if choice == "1":
+            starexx.getSystemInfo()
+            starexx.pause()
+        elif choice == "2":
+            counter = starexx.createCounter()
+            starexx.say("Counter demo:")
+            for i in range(5):
+                starexx.say(f"Count: {counter()}")
+            starexx.pause()
+        elif choice == "3":
+            starexx.say("Goodbye!")
+            # starexx.exitApp()  # Uncomment to actually exit
+            break
+        else:
+            starexx.say("Invalid choice!")
+            starexx.pause()
+
+# Run the interactive menu
+# interactive_menu()</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">System utilities for terminal control, application flow, and system information. The counter function creates stateful counters that maintain their count between calls.</p>
+            </div>
+        </section>
+
+        <!-- Complete Example -->
+        <section id="complete-example" class="mb-16 scroll-mt-20">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Complete Program Example</h2>
+            <div class="prose max-w-none mb-6">
+                <p class="text-gray-600 mb-4">
+                    A comprehensive example demonstrating how to use multiple Starexx functions together in a real-world application.
+                </p>
+            </div>
+
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                <pre class="code-block bg-white border border-gray-300 rounded p-4 text-sm overflow-x-auto"><code>import starexx
+
+def user_profile_manager():
+    """
+    A complete user profile management system using Starexx library.
+    Demonstrates multiple functions working together.
+    """
+    starexx.clearScreen()
+    starexx.say("=== USER PROFILE MANAGER ===")
+    
+    # Collect user information
+    name = starexx.ask("What's your name?")
+    
+    while True:
+        age_input = starexx.ask("How old are you?")
+        if starexx.validateNumber(age_input):
+            age = int(age_input)
+            break
+        else:
+            starexx.say("Please enter a valid number for age!")
+    
+    email = starexx.ask("What's your email address?")
+    while not starexx.validateEmail(email):
+        starexx.say("Invalid email format! Please try again.")
+        email = starexx.ask("What's your email address?")
+    
+    city = starexx.ask("Which city do you live in?")
+    
+    # Calculate additional information
+    current_year = 2024
+    birth_year = starexx.subtract(current_year, age)
+    
+    # Check age properties
+    age_is_even = starexx.isEven(age)
+    age_is_prime = starexx.isPrime(age)
+    
+    # Create user profile
+    user_profile = starexx.createDict(
+        name=name,
+        age=age,
+        email=email,
+        city=city,
+        birth_year=birth_year,
+        age_is_even=age_is_even,
+        age_is_prime=age_is_prime,
+        created_at=starexx.showDate()
+    )
+    
+    # Display profile information
+    starexx.say("\n=== PROFILE SUMMARY ===")
+    starexx.say(f"Name: {starexx.toUpper(name)}")
+    starexx.say(f"Age: {age} years old")
+    starexx.say(f"Email: {starexx.toLower(email)}")
+    starexx.say(f"City: {starexx.capitalizeText(city)}")
+    starexx.say(f"Birth Year: {birth_year}")
+    starexx.say(f"Age is even: {age_is_even}")
+    starexx.say(f"Age is prime: {age_is_prime}")
+    
+    # Generate some fun facts
+    starexx.say("\n=== FUN FACTS ===")
+    starexx.say(f"Your name has {starexx.textLength(name)} characters")
+    starexx.say(f"Your name backwards: {starexx.reverseText(name)}")
+    
+    if age_is_prime:
+        starexx.say("Your age is a prime number! 🎉")
+    else:
+        starexx.say("Your age is a composite number.")
+    
+    # Save profile to file
+    filename = f"profile_{starexx.toLower(starexx.replaceText(name, ' ', '_'))}.txt"
+    profile_content = f"User Profile\\n{'-'*20}\\n"
+    
+    for key, value in user_profile.items():
+        profile_content += f"{starexx.capitalizeText(starexx.replaceText(key, '_', ' '))}: {value}\\n"
+    
+    starexx.writeFile(filename, profile_content)
+    starexx.say(f"\\nProfile saved to: {filename}")
+    
+    # Display file information
+    if starexx.fileExists(filename):
+        file_size = starexx.fileSize(filename)
+        starexx.say(f"File size: {file_size} bytes")
+        
+        # Read and display the saved file
+        starexx.say("\\n=== SAVED PROFILE CONTENT ===")
+        saved_content = starexx.readFile(filename)
+        starexx.say(saved_content)
+    
+    starexx.say("\\nThank you for using User Profile Manager!")
+    starexx.sayGoodbye()
+
+def main():
+    """
+    Main function with error handling and user interaction.
+    """
+    try:
+        user_profile_manager()
+    except KeyboardInterrupt:
+        starexx.say("\\nProgram interrupted by user.")
+    except Exception as e:
+        starexx.say(f"An error occurred: {e}")
+    finally:
+        starexx.say("Program execution completed.")
+
+if __name__ == "__main__":
+    main()</code></pre>
+                <p class="text-gray-600 mt-2 text-sm">
+                    This complete example demonstrates a user profile management system that uses multiple Starexx functions including:
+                    input/output, validation, math operations, text processing, file operations, and data structures.
+                    It shows how different functions can be combined to create a practical application.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Floating header functionality
+        const header = document.querySelector('.floating-header');
+        const tocToggle = document.getElementById('toc-toggle');
+        const tocDropdown = document.querySelector('.toc-dropdown');
+        const sections = document.querySelectorAll('section');
+        const chapterElement = document.getElementById('current-chapter');
+
+        // Show/hide header on scroll
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('visible');
+                
+                // Update current chapter
+                let currentSection = '';
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        const heading = section.querySelector('h1, h2');
+                        if (heading) {
+                            currentSection = heading.textContent;
+                        }
+                    }
+                });
+                if (currentSection) {
+                    chapterElement.textContent = currentSection;
+                }
+            } else {
+                header.classList.remove('visible');
+            }
+            lastScrollY = window.scrollY;
+        });
+
+        // TOC dropdown functionality
+        tocToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            tocDropdown.classList.toggle('open');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+            tocDropdown.classList.remove('open');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    tocDropdown.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
